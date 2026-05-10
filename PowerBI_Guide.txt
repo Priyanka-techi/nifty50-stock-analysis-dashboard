@@ -181,69 +181,6 @@ Step 29: Export as PDF for submission:
          File → Export → Export to PDF.
          Save it in the same folder as "Nifty50_Dashboard.pdf".
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-PART 6 — COMPLETE PROJECT CHECKLIST
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-Work through this list from top to bottom. Tick each item as you finish it.
-
-[ ] 1.  Install Power BI Desktop from the link at the top of this file.
-
-[ ] 2.  Run the Python pipeline if not already done:
-          python extract_yaml_to_csv.py
-          python clean_data.py
-          python db_upload.py
-
-[ ] 3.  Confirm cleaned_stock_data.csv exists in the data/ folder.
-
-[ ] 4.  Open Power BI Desktop and load cleaned_stock_data.csv (Part 1 above).
-
-[ ] 5.  Create the two Measures: Avg Close Price, Avg Daily Volume (Part 2).
-
-[ ] 6.  Build all 6 visuals on the canvas (Part 3).
-
-[ ] 7.  Arrange, title, and format visuals (Part 4).
-
-[ ] 8.  Save as Nifty50_Dashboard.pbix in the stock_analysis folder (Part 5).
-
-[ ] 9.  Export as Nifty50_Dashboard.pdf (Part 5).
-
-[ ] 10. Test the Streamlit dashboard one final time:
-          streamlit run app/app.py
-        Confirm all 8 sections load without errors.
-
-[ ] 11. Push everything to GitHub:
-          git add .
-          git commit -m "Complete project: Streamlit dashboard + Power BI guide"
-          git push
-        Go to your GitHub repo page and confirm it is set to PUBLIC.
-        (Settings → scroll down → Danger Zone → Change visibility → Public)
-
-[ ] 12. Record a demo video (screen recording):
-          - Show the Streamlit dashboard running in your browser.
-          - Click through each section (KPIs, charts, monthly view, candlestick).
-          - Open the Power BI file and show each visual briefly.
-          - Video should be 3-5 minutes.
-          - Tools you can use to record: Xbox Game Bar (Win+G), OBS Studio (free).
-
-[ ] 13. Post on LinkedIn:
-          - Upload the video.
-          - Write a short post describing the project (2-3 sentences).
-          - Add hashtags: #DataScience #Python #Streamlit #PowerBI #Nifty50
-          - Tag your training institute if applicable.
-
-[ ] 14. Submit the GitHub link and LinkedIn post link for evaluation.
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-QUICK REFERENCE — Files in this project
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-  extract_yaml_to_csv.py    →  Run first. Reads YAML → creates 50 CSVs.
-  clean_data.py             →  Run second. Cleans data, adds computed columns.
-  db_upload.py              →  Run third. Uploads data to MySQL.
-  app/app.py                →  Streamlit dashboard. Run with: streamlit run app/app.py
-  data/cleaned_stock_data.csv  →  The file Power BI reads.
-  Nifty50_Dashboard.pbix    →  Your Power BI file (you will create this).
   Nifty50_Dashboard.pdf     →  Exported PDF of Power BI dashboard.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
