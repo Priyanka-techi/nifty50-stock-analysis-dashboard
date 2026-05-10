@@ -1,11 +1,22 @@
+# Python
 venv/
 env/
 __pycache__/
 *.pyc
+*.pyo
 .ipynb_checkpoints/
-*.db
-.vscode/
-.idea/
+*.egg-info/
 dist/
 build/
-*.egg-info/
+
+# IDE
+.vscode/
+.idea/
+
+# Database
+*.db
+*.sqlite
+
+# OS
+.DS_Store
+Thumbs.db

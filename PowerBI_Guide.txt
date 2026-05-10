@@ -1,0 +1,249 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║          POWER BI DASHBOARD — STEP BY STEP GUIDE                            ║
+║          Project: Data-Driven Stock Analysis (Nifty 50)                     ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+Before you start:
+  - Make sure you have already run clean_data.py so the file
+    data/cleaned_stock_data.csv exists in your project folder.
+  - Download and install Power BI Desktop (FREE) from:
+    https://www.microsoft.com/en-us/download/details.aspx?id=58494
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PART 1 — LOAD YOUR DATA INTO POWER BI
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Step 1:  Open Power BI Desktop.
+         You will see a splash screen. Click "Get data" OR close the splash
+         and click "Get data" from the Home ribbon at the top.
+
+Step 2:  In the "Get data" window, type "Text/CSV" in the search box.
+         Click "Text/CSV" and click "Connect".
+
+Step 3:  A file browser opens. Navigate to your project folder:
+           D:\Priyanka\AIML_Data Driven Stock Analysis MP 2\stock_analysis\data\
+         Select "cleaned_stock_data.csv" and click "Open".
+
+Step 4:  A preview window shows your data. You will see columns like:
+         ticker, date, open, close, high, low, volume, daily_return,
+         Sector, month_name, etc.
+         Click "Load" (bottom right).
+
+Step 5:  Wait a few seconds. Power BI loads ~50,000 rows.
+         On the right side you will now see a "Fields" panel listing all columns.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PART 2 — ADD COMPUTED COLUMNS (Calculated Measures)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+You need to create two "Measures" — these are formulas Power BI uses to
+calculate values dynamically.
+
+Step 6:  In the Home ribbon, click "New Measure" (or right-click your table
+         name in the Fields panel and choose "New Measure").
+
+Step 7:  The formula bar appears at the top. Delete what's there and type
+         this formula exactly:
+
+           Avg Close Price = AVERAGE(cleaned_stock_data[close])
+
+         Press Enter. This measure will appear in your Fields panel.
+
+Step 8:  Create another New Measure. Type:
+
+           Avg Daily Volume = AVERAGE(cleaned_stock_data[volume])
+
+         Press Enter.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PART 3 — BUILD THE VISUALS (Charts)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+You will build 6 visuals on one page. Click on an empty area of the canvas
+before starting each visual.
+
+────────────────────────────────────────────────────────────────────────────
+VISUAL 1 — Card: Average Close Price
+────────────────────────────────────────────────────────────────────────────
+Step 9:  In the Visualizations panel (right side), click the "Card" icon.
+         (It looks like a rectangle with "123" inside it.)
+
+Step 10: In the Fields panel on the right, find your measure "Avg Close Price".
+         Drag it into the "Fields" box of the Card visual (shown in the
+         Visualizations panel under "Build visual").
+
+Step 11: The card will now display the average close price.
+         Click somewhere else to deselect, then repeat for next visual.
+
+────────────────────────────────────────────────────────────────────────────
+VISUAL 2 — Card: Average Daily Volume
+────────────────────────────────────────────────────────────────────────────
+Step 12: Click on empty canvas area.
+         Click the "Card" icon again.
+         Drag "Avg Daily Volume" measure into the Fields box.
+
+────────────────────────────────────────────────────────────────────────────
+VISUAL 3 — Bar Chart: Top 10 Gainers & Losers by Yearly Return
+────────────────────────────────────────────────────────────────────────────
+Step 13: Click on empty canvas area.
+         In the Visualizations panel, click the "Clustered Bar Chart" icon
+         (horizontal bars).
+
+Step 14: From the Fields panel, drag:
+           "ticker"       → into the "Y-axis" box
+           "close"        → into the "X-axis" box
+           (Power BI will auto-sum it; we just need a reference visual here)
+
+Step 15: With this visual selected, click the "Filters" pane (top right,
+         funnel icon). Under "Filters on this visual", find "ticker".
+         Set it to show only the top 10 tickers you know are gainers
+         (TRENT, BHARTIARTL, etc.) — or skip this filter for now.
+
+         Note: Power BI does not auto-rank like Python. This visual gives
+         a general performance overview. You will refine it after seeing
+         the data.
+
+────────────────────────────────────────────────────────────────────────────
+VISUAL 4 — Line Chart: Stock Price Over Time (for top stocks)
+────────────────────────────────────────────────────────────────────────────
+Step 16: Click on empty canvas area.
+         In the Visualizations panel, click "Line Chart".
+
+Step 17: Drag these fields:
+           "date"   → X-axis
+           "close"  → Y-axis
+           "ticker" → Legend
+
+Step 18: With the visual selected, go to the Filters pane.
+         Under "Filters on this visual", find "ticker".
+         Change filter type to "Top N".
+         Set: Show Top 5, By value: close (Sum).
+         Click "Apply filter".
+         Now the chart shows only the 5 highest-priced stocks over time.
+
+────────────────────────────────────────────────────────────────────────────
+VISUAL 5 — Bar Chart: Average Yearly Return by Sector
+────────────────────────────────────────────────────────────────────────────
+Step 19: Click on empty canvas area.
+         Click "Clustered Column Chart" (vertical bars).
+
+Step 20: Drag:
+           "Sector"       → X-axis
+           "daily_return" → Y-axis  (Power BI will show average automatically)
+
+Step 21: With the visual selected, go to the Format pane (paint roller icon).
+         Click "Columns" → "Colors".
+         You can set a conditional color (green for positive, red for negative)
+         later. For now, the chart correctly shows which sectors performed best.
+
+────────────────────────────────────────────────────────────────────────────
+VISUAL 6 — Slicer: Filter by Sector (Interactive Filter)
+────────────────────────────────────────────────────────────────────────────
+Step 22: Click on empty canvas area.
+         In the Visualizations panel, click "Slicer" (the funnel icon).
+
+Step 23: Drag "Sector" from the Fields panel into the "Field" box.
+         A dropdown slicer appears. Now when you click a sector in this
+         slicer, ALL other visuals on the page update automatically.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PART 4 — FORMAT & ARRANGE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Step 24: Arrange your visuals on the canvas:
+         - Put the two Cards (Avg Price, Avg Volume) at the top
+         - Put the Slicer top-right
+         - Bar charts in the middle
+         - Line chart at the bottom (it's wider)
+
+Step 25: To add a title to the page:
+         Click "Insert" in the top ribbon → "Text Box".
+         Type: "Nifty 50 Stock Performance Dashboard"
+         Make it large (font size 20+) and place it at the very top.
+
+Step 26: To give each visual a title:
+         Click a visual → Format pane (paint roller) → "Title" → toggle On.
+         Type a meaningful title like "Average Return by Sector".
+
+Step 27: Change the page theme (optional but looks professional):
+         View ribbon → Themes → pick any theme you like.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PART 5 — SAVE & EXPORT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Step 28: Save your Power BI file:
+         File → Save As → navigate to:
+           D:\Priyanka\AIML_Data Driven Stock Analysis MP 2\stock_analysis\
+         Save as: "Nifty50_Dashboard.pbix"
+
+Step 29: Export as PDF for submission:
+         File → Export → Export to PDF.
+         Save it in the same folder as "Nifty50_Dashboard.pdf".
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PART 6 — COMPLETE PROJECT CHECKLIST
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Work through this list from top to bottom. Tick each item as you finish it.
+
+[ ] 1.  Install Power BI Desktop from the link at the top of this file.
+
+[ ] 2.  Run the Python pipeline if not already done:
+          python extract_yaml_to_csv.py
+          python clean_data.py
+          python db_upload.py
+
+[ ] 3.  Confirm cleaned_stock_data.csv exists in the data/ folder.
+
+[ ] 4.  Open Power BI Desktop and load cleaned_stock_data.csv (Part 1 above).
+
+[ ] 5.  Create the two Measures: Avg Close Price, Avg Daily Volume (Part 2).
+
+[ ] 6.  Build all 6 visuals on the canvas (Part 3).
+
+[ ] 7.  Arrange, title, and format visuals (Part 4).
+
+[ ] 8.  Save as Nifty50_Dashboard.pbix in the stock_analysis folder (Part 5).
+
+[ ] 9.  Export as Nifty50_Dashboard.pdf (Part 5).
+
+[ ] 10. Test the Streamlit dashboard one final time:
+          streamlit run app/app.py
+        Confirm all 8 sections load without errors.
+
+[ ] 11. Push everything to GitHub:
+          git add .
+          git commit -m "Complete project: Streamlit dashboard + Power BI guide"
+          git push
+        Go to your GitHub repo page and confirm it is set to PUBLIC.
+        (Settings → scroll down → Danger Zone → Change visibility → Public)
+
+[ ] 12. Record a demo video (screen recording):
+          - Show the Streamlit dashboard running in your browser.
+          - Click through each section (KPIs, charts, monthly view, candlestick).
+          - Open the Power BI file and show each visual briefly.
+          - Video should be 3-5 minutes.
+          - Tools you can use to record: Xbox Game Bar (Win+G), OBS Studio (free).
+
+[ ] 13. Post on LinkedIn:
+          - Upload the video.
+          - Write a short post describing the project (2-3 sentences).
+          - Add hashtags: #DataScience #Python #Streamlit #PowerBI #Nifty50
+          - Tag your training institute if applicable.
+
+[ ] 14. Submit the GitHub link and LinkedIn post link for evaluation.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+QUICK REFERENCE — Files in this project
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  extract_yaml_to_csv.py    →  Run first. Reads YAML → creates 50 CSVs.
+  clean_data.py             →  Run second. Cleans data, adds computed columns.
+  db_upload.py              →  Run third. Uploads data to MySQL.
+  app/app.py                →  Streamlit dashboard. Run with: streamlit run app/app.py
+  data/cleaned_stock_data.csv  →  The file Power BI reads.
+  Nifty50_Dashboard.pbix    →  Your Power BI file (you will create this).
+  Nifty50_Dashboard.pdf     →  Exported PDF of Power BI dashboard.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
